@@ -2,6 +2,7 @@
 
 namespace App\Models\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ class Opperateur extends Model
 
     public function restaurant()
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Restaurants::class);
         
     }
 }

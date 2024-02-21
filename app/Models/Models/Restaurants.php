@@ -4,6 +4,7 @@ namespace App\Models\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Constraint\Operator;
 
 class Restaurants extends Model
 {
@@ -12,7 +13,7 @@ class Restaurants extends Model
 
     public function menus()
     {
-        return $this->hasMany(Menu::class);
+        return $this->hasMany(Menus::class);
     }
     public function operators()
     {
