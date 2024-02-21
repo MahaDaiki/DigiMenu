@@ -42,4 +42,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function admin()
+    {
+       
+        return $this->hasOne(Admin::class);
+    }
+    public function owner()
+    {
+       
+        return $this->hasOne(Owner::class);
+    }
+    public function opperateur()
+    {
+       
+        return $this->hasOne(Opperateur::class);
+    }
+    public function Sub_Admin()
+    {
+       
+        return $this->hasOne(Sub_Admin::class);
+    }
 }
