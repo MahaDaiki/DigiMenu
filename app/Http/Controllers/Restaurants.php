@@ -15,7 +15,7 @@ class RestaurantsController extends Controller
     public function index()
     {
         $restaurants = Restaurants::all();
-        return view('restaurants.index', compact('restaurants'));
+        return view('', compact('restaurants'));
     }
 
     /**
@@ -23,7 +23,7 @@ class RestaurantsController extends Controller
      */
     public function create()
     {
-        return view('restaurants.create');
+        return view('');
     }
 
     /**
@@ -47,7 +47,7 @@ class RestaurantsController extends Controller
 
         Restaurants::create($validatedData);
 
-        return redirect()->route('restaurants.index')->with('success', 'Restaurant created successfully');
+        return redirect()->back()->with('success', 'Restaurant created successfully');
     }
 
     /**
@@ -90,7 +90,7 @@ class RestaurantsController extends Controller
         $restaurant = Restaurants::findOrFail($id);
         $restaurant->update($validatedData);
 
-        return redirect()->route('restaurants.index')->with('success', 'Restaurant updated successfully');
+        return redirect()->back()->with('success', 'Restaurant updated successfully');
     }
 
     /**
@@ -101,6 +101,6 @@ class RestaurantsController extends Controller
         $restaurant = Restaurants::findOrFail($id);
         $restaurant->delete();
 
-        return redirect()->route('restaurants.index')->with('success', 'Restaurant deleted successfully');
+        return redirect()->back()->with('success', 'Restaurant deleted successfully');
     }
 }
