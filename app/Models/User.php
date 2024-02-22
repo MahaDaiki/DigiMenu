@@ -3,10 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Models\Admin;
-use App\Models\Models\Opperateur;
-use App\Models\Models\Owner;
-use App\Models\Models\Sub_Admin;
+use App\Models\Admin;
+use App\Models\Opperateur;
+use App\Models\Owner;
+use App\Models\Sub_Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
