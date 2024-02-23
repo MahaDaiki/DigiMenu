@@ -13,7 +13,7 @@ class SocialiteController extends Controller
 
     }
 
-    public function callback(){
+    public function callback($Socialite){
         $user = Socialite::driver($Socialite)->user();
         dd( $user);
 
