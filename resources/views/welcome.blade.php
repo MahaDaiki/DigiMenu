@@ -17,20 +17,8 @@
         <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
     </head>
     <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+        {{-- <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+          --}}
 
             {{-- <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <div class="preloader">
@@ -54,7 +42,7 @@
                   <!-- RD Navbar Toggle-->
                   <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                   <!-- RD Navbar Brand-->
-                  <div class="rd-navbar-brand"><a href=""><img class="brand-logo-light" src="{{asset('images/logo-default1-140x57.png')}}" alt="" width="140" height="57" srcset="images/logo-default-280x113.png 2x"/></a></div>
+                  <div class="rd-navbar-brand"><a href="">DigiMenu</div>
                 </div>
                 <div class="rd-navbar-main-element">
                   <div class="rd-navbar-nav-wrap">
@@ -64,6 +52,18 @@
                       </li>
                       <li class="rd-nav-item"><a class="rd-nav-link" href="">Restaurants</a>
                       </li>
+                      @if (Route::has('login'))
+                      @auth
+                      <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                      </li>
+                    @else
+                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('login') }}">Log in</a>
+                        @if (Route::has('register'))
+                            <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+              
+            @endif
                     </ul>
                   </div>
                 </div>
@@ -74,7 +74,7 @@
       </header>
       <!-- Swiper-->
       <section class="section section-lg section-main-bunner section-main-bunner-filter text-center">
-        <div class="main-bunner-img" style="background-image: url(&quot;images/bg-bunner-2.jpg&quot;); background-size: cover;"></div>
+        <div class="main-banner-img" style="background-image: url('{{ asset('images/bg-banner-2.jpg') }}'); background-size: cover;"></div>
         <div class="main-bunner-inner">
           <div class="container">
             <div class="box-default">
@@ -91,7 +91,7 @@
           <div class="container">
             <div class="row row-50 justify-content-xl-between align-items-lg-center">
               <div class="col-lg-6 wow fadeInLeft">
-                <div class="box-image"><img class="box-image-static" src="images/home-3-1-483x327.jpg" alt="" width="483" height="327"/><img class="box-image-position" src="images/home-3-2-341x391.png" alt="" width="341" height="391"/>
+                <div class="box-image"><img class="box-image-static" src="{{ asset('images/home-3-1-483x327.jpg')}}" alt="" width="483" height="327"/><img class="box-image-position" src="images/home-3-2-341x391.png" alt="" width="341" height="391"/>
                 </div>
               </div>
               <div class="col-lg-6 col-xl-5 wow fadeInRight">
@@ -131,7 +131,7 @@
             <div class="col-md-6 col-lg-4 wow-outer">
               <div class="wow fadeInUp">
                 <div class="product-featured">
-                  <div class="product-featured-figure"><img src="images/product-2-370x395.jpg" alt="" width="370" height="395"/>
+                  <div class="product-featured-figure"><img src="{{ asset('images/product-2-370x395.jpg')}}" alt="" width="370" height="395"/>
                     <div class="product-featured-button"><a class="button button-primary" href="#">order now</a></div>
                   </div>
                   <div class="product-featured-caption">
@@ -144,7 +144,7 @@
             <div class="col-md-6 col-lg-4 wow-outer">
               <div class="wow fadeInUp">
                 <div class="product-featured">
-                  <div class="product-featured-figure"><img src="images/product-3-370x395.jpg" alt="" width="370" height="395"/>
+                  <div class="product-featured-figure"><img src="{{ asset('images/product-3-370x395.jpg')}}" alt="" width="370" height="395"/>
                     <div class="product-featured-button"><a class="button button-primary" href="#">order now</a></div>
                   </div>
                   <div class="product-featured-caption">
@@ -286,28 +286,28 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 isotope-item wow-outer" data-filter="Category 3">
                   <div class="wow slideInDown">
-                    <div class="gallery-item-classic"><img src="images/gallery-masonry-2-640x429.jpg" alt="" width="640" height="429"/>
+                    <div class="gallery-item-classic"><img src="{{ asset('images/gallery-masonry-2-640x429.jpg')}}" alt="" width="640" height="429"/>
                       <div class="gallery-item-classic-caption"><a href="images/gallery-masonry-2-original.jpg" data-lightgallery="item">zoom</a></div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-4 isotope-item wow-outer" data-filter="Category 3">
                   <div class="wow slideInDown">
-                    <div class="gallery-item-classic"><img src="images/gallery-masonry-3-640x429.jpg" alt="" width="640" height="429"/>
-                      <div class="gallery-item-classic-caption"><a href="images/gallery-masonry-3-original.jpg" data-lightgallery="item">zoom</a></div>
+                    <div class="gallery-item-classic"><img src="{{ asset('images/gallery-masonry-3-640x429.jpg')}}" alt="" width="640" height="429"/>
+                      <div class="gallery-item-classic-caption"><a href="{{ asset('images/gallery-masonry-3-original.jpg')}}" data-lightgallery="item">zoom</a></div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 isotope-item wow-outer" data-filter="Category 3">
                   <div class="wow fadeInUp">
-                    <div class="gallery-item-classic"><img src="images/gallery-masonry-4-960x429.jpg" alt="" width="960" height="429"/>
-                      <div class="gallery-item-classic-caption"><a href="images/gallery-masonry-4-original.jpg" data-lightgallery="item">zoom</a></div>
+                    <div class="gallery-item-classic"><img src="{{ asset('images/gallery-masonry-4-960x429.jpg')}}" alt="" width="960" height="429"/>
+                      <div class="gallery-item-classic-caption"><a href="{{ asset('images/gallery-masonry-4-original.jpg')}}" data-lightgallery="item">zoom</a></div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 isotope-item wow-outer" data-filter="Category 2">
                   <div class="wow fadeInUp">
-                    <div class="gallery-item-classic"><img src="images/gallery-masonry-5-960x429.jpg" alt="" width="960" height="429"/>
+                    <div class="gallery-item-classic"><img src="{{ asset('images/gallery-masonry-5-960x429.jpg')}}" alt="" width="960" height="429"/>
                       <div class="gallery-item-classic-caption"><a href="images/gallery-masonry-5-original.jpg" data-lightgallery="item">zoom</a></div>
                     </div>
                   </div>
@@ -378,22 +378,13 @@
             </div>
           </div>
         </div>
-      </section><a class="section section-banner" href="https://www.templatemonster.com/website-templates/monstroid2.html" style="background-image: url(images/banner/background-03-1920x310.jpg); background-image: -webkit-image-set( url(images/banner/background-03-1920x310.jpg) 1x, url(images/banner/background-03-3840x620.jpg) 2x )"><img src="images/banner/foreground-03-1600x310.png" srcset="images/banner/foreground-03-1600x310.png 1x, images/banner/foreground-03-3200x620.png 2x" alt="" width="1600" height="310"></a>
+      </section>
       <!-- Page Footer-->
       <footer class="section footer-minimal context-dark">
         <div class="container wow-outer">
           <div class="wow fadeIn">
             <div class="row row-60">
-              <div class="col-12"><a href="index.html"><img src="images/logo-default1-140x57.png" alt="" width="140" height="57" srcset="images/logo-default-280x113.png 2x"/></a></div>
-              <div class="col-12">
-                <ul class="footer-minimal-nav">
-                  <li><a href="#">Menu</a></li>
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="contacts.html">Contacts</a></li>
-                  <li><a href="#">Gallery</a></li>
-                  <li><a href="about-us.html">About</a></li>
-                </ul>
-              </div>
+              <div class="col-12"><a href="index.html">DigiMenus</a></div>
               <div class="col-12">
                 <ul class="social-list">
                   <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-facebook" href="#"></a></li>
@@ -404,12 +395,12 @@
                 </ul>
               </div>
             </div>
-            <p class="rights"><span>&copy;&nbsp; </span><span class="copyright-year"></span><span>&nbsp;</span><span>Pesto</span><span>.&nbsp;</span><span>All Rights Reserved.</span><span>&nbsp;</span><a href="#">Privacy Policy</a>. Design&nbsp;by&nbsp;</p>
+            <p class="rights"><span>&copy;&nbsp; </span><span class="copyright-year"></span><span>&nbsp;</span><span>DigiMenu</span><span>.&nbsp;</span><span>All Rights Reserved.</span><span>&nbsp;</span><a href="#">Privacy Policy</a>. Design&nbsp;by&nbsp;</p>
           </div>
         </div>
       </footer>
     </div>
-    <div class="snackbars" id="form-output-global"></div>
+    {{-- <div class="snackbars" id="form-output-global"></div> --}}
     <script src="{{ asset('assets/js/core.min.js')}}"></script>
     <script src="{{ asset('assets/js/script.js')}}"></script>
   </body>
