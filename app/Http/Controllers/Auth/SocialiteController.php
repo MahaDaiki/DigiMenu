@@ -18,4 +18,5 @@ class SocialiteController extends Controller
         dd( $user);
 
     }
+    
 }
