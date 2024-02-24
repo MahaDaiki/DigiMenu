@@ -17,15 +17,20 @@ class SocialiteController extends Controller
 
     public function callback($Socialite){
         $githubUser = Socialite::driver('github')->user();
-    
+
+        $existingUser = User::where('email', $githubUser->email)->first();
+
+        if ($existingUser) {
+            auth()->login($existingUser);
+            return redirect('/dashboard');
+        }
         $user = User::updateOrCreate([
-            'id' => $githubUser->id,
+            'id' => (int) $githubUser->id,
+            'Socialite'=>$Socialite,
         ], [
             'name' => $githubUser->name,
             'email' => $githubUser->email,
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
-            'password' => bcrypt('default'),
+            'Socialite_token' => $githubUser->token,
         ]);
     
         //dd($githubUser);
