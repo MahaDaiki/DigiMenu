@@ -32,6 +32,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::middleware(['auth', 'role:owner'])->group(function () {
+    Route::get('/owner-dashboard', function () {
+        return view('owner_dashboard'); 
+    })->name('Ownerdashboard');
+});
+
 Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
 
  
@@ -39,7 +46,5 @@ Route::get('/auth/{Socialite}/redirect',[SocialiteController::class, 'redirect']
  
 Route::get('/auth/{Socialite}/callback', [SocialiteController::class, 'callback']);
 
-Route::get('/auth/{Socialite}/redirect',[googelSocialiteController::class, 'redirect']);
- 
-Route::get('/auth/{Socialite}/callback', [googelSocialiteController::class, 'callback']);
+
 require __DIR__.'/auth.php';
