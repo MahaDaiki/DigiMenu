@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class OwnerSeeder extends Seeder
 {
@@ -12,6 +13,12 @@ class OwnerSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $user = User::create( [
+            'name' => 'Owner',
+            'email' => 'owner@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('owner'),
+        ]);
+        $user->assignRole('user', 'owner');
     }
 }
