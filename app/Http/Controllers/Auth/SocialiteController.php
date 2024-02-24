@@ -34,5 +34,5 @@ class SocialiteController extends Controller
     
         return redirect('/dashboard');
     }
-    
+   
 }

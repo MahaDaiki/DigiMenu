@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\Auth\googelSocialiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,7 @@ Route::get('/auth/{Socialite}/redirect',[SocialiteController::class, 'redirect']
  
 Route::get('/auth/{Socialite}/callback', [SocialiteController::class, 'callback']);
 
+Route::get('/auth/{Socialite}/redirect',[googelSocialiteController::class, 'redirect']);
+ 
+Route::get('/auth/{Socialite}/callback', [googelSocialiteController::class, 'callback']);
 require __DIR__.'/auth.php';
