@@ -45,6 +45,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
     Route::get('/ajouter operateur', [AdminController::class, 'create'] )->name('operateur');
+    Route::post('/store',[AdminController::class, 'store'])->name('Store');
     //Mail::to('mohmmedleah81@gmail.com')
     //->send(new LaravelMail());
 });
