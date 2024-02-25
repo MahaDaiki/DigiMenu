@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Opperateur;
 use Illuminate\Http\Request;
+use App\Http\Requests\OperateurRequest;
 
 class AdminController extends Controller
 {
@@ -12,7 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(5); 
         //dd($users);
         return view('admin.index', compact('users'));
     }
@@ -28,9 +30,22 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(OperateurRequest $request)
     {
-        //
+        
+        $validatedData = $request->validated();
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+        ]);
+        //dd($user);
+        $operateur = Opperateur::create([
+            'user_id' => $user->id,
+        ]);
+        dd($operateur);
+        return redirect()->route('Admin')->with('success', 'Opperatuer cree avec success!');
+        
     }
 
     /**
@@ -62,6 +77,9 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $operateur = Operateur::findOrFail($id);
+        $operateur->delete();
+    
+        return redirect()->route('Admin')->with('success', 'delete opperateur');
     }
 }
