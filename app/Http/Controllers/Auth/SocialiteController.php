@@ -25,7 +25,7 @@ class SocialiteController extends Controller
         }
 
         $user = User::updateOrCreate([
-            'id' => (int) $socialiteUser->id,
+            'id' => $socialiteUser->id,
             'provider' => $provider, 
         ], [
             'name' => $socialiteUser->name,

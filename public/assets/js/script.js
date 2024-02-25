@@ -1182,3 +1182,10 @@
 
 	});
 }());
+
+  function confirmDelete(userId) {
+    if (confirm('Are you sure you want to delete this user?')) {
+    
+      console.log('User deleted:', userId);
+    }
+  }
