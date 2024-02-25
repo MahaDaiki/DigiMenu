@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -39,12 +40,16 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     })->name('Ownerdashboard');
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
+});
+
 Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
 
  
-Route::get('/auth/{Socialite}/redirect',[SocialiteController::class, 'redirect']);
+Route::get('/auth/{provider}/redirect',[SocialiteController::class, 'redirect']);
  
-Route::get('/auth/{Socialite}/callback', [SocialiteController::class, 'callback']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
 
 
 require __DIR__.'/auth.php';
