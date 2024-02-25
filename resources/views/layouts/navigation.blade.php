@@ -23,6 +23,13 @@
                     </x-nav-link>
                 </div>
                 @endrole
+                @role('admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('Admin')" :active="request()->routeIs('admin')">
+                        {{ __('Admin Dashboard') }}
+                    </x-nav-link>
+                </div>
+                @endrole
             </div>
 
             <!-- Settings Dropdown -->
