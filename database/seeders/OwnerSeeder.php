@@ -17,7 +17,9 @@ class OwnerSeeder extends Seeder
             'name' => 'Owner',
             'email' => 'owner@gmail.com',
             'email_verified_at' => now(),
+            
             'password' => bcrypt('owner'),
+            
         ]);
         $user->assignRole('user', 'owner');
     }
