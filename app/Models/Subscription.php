@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     use HasFactory;
-    protected $fillable = ['price', 'article_number', 'scan_limit', 'media_type'];
+    protected $fillable = ['name', 'price', 'article_number', 'scan_limit', 'media_type'];
 
     public function owners()
     {
