@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->decimal('price', 5, 2);
             $table->string('article_number');
             $table->integer('scan_limit');
-            $table->enum('media_type', ['video', 'image','Both']);
+            $table->enum('media_type', ['no', 'video', 'image']);
             $table->timestamps();
         });
     }
