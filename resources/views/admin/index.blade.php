@@ -34,6 +34,9 @@
                         <td class="text-white">
                           <button class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">Delete user</button>
                         </td>
+                       
+                        
+                        
                     </tr>
                 @empty
                     <tr>

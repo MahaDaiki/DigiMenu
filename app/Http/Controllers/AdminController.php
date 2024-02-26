@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Opperateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OperateurRequest;
 
 class AdminController extends Controller
@@ -43,11 +44,15 @@ class AdminController extends Controller
         $operateur = Opperateur::create([
             'user_id' => $user->id,
         ]);
-        dd($operateur);
+        //dd($operateur);
         return redirect()->route('Admin')->with('success', 'Opperatuer cree avec success!');
         
     }
+ 
 
+    
+     
+    
     /**
      * Display the specified resource.
      */
