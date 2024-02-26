@@ -1,7 +1,10 @@
 <?php
 
+//use App\Mail\LaravelMail;
+//use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -52,14 +55,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
+//gestion des roles
+Route::middleware(['auth', 'role:owner'])->group(function () {
+    Route::get('/owner-dashboard', function () {
+        return view('owner_dashboard'); 
+    })->name('Ownerdashboard');
+});
 
- 
-Route::get('/auth/{Socialite}/redirect',[SocialiteController::class, 'redirect']);
- 
-Route::get('/auth/{Socialite}/callback', [SocialiteController::class, 'callback']);
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
+    Route::get('/ajouter operateur', [AdminController::class, 'create'] )->name('operateur');
+    Route::post('/store',[AdminController::class, 'store'])->name('Store');
+    //Mail::to('mohmmedleah81@gmail.com')
+    //->send(new LaravelMail());
+});
 
-Route::get('/auth/{Socialite}/redirect',[googelSocialiteController::class, 'redirect']);
+//Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
+
+ //gestion email
+
+
+//login & regster github google
+Route::get('/auth/{provider}/redirect',[SocialiteController::class, 'redirect']);
  
-Route::get('/auth/{Socialite}/callback', [googelSocialiteController::class, 'callback']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
+
+
 require __DIR__.'/auth.php';

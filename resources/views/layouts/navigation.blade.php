@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-gray-500 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-100 dark:text-gray-200" />
                     </a>
                 </div>
 
@@ -16,6 +16,25 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                @role('owner')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('Ownerdashboard')" :active="request()->routeIs('Owner')">
+                        {{ __('Owner Dashboard') }}
+                    </x-nav-link>
+                </div>
+                @endrole
+                @role('admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('Admin')" :active="request()->routeIs('admin')">
+                        {{ __('Admin Dashboard') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('operateur')" :active="request()->routeIs('operateur')">
+                        {{ __('Ajouter un operateur') }}
+                    </x-nav-link>
+                </div>
+                @endrole
             </div>
 
             <!-- Settings Dropdown -->

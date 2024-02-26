@@ -8,31 +8,32 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
-    public function redirect($Socialite)
+    public function redirect($provider)
     {
-       return Socialite::driver('github')->redirect();
-     
-
+        return Socialite::driver($provider)->redirect();
     }
 
-    public function callback($Socialite){
-        $githubUser = Socialite::driver('github')->user();
-    
+    public function Callback($provider)
+    {
+        $socialiteUser = Socialite::driver($provider)->user();
+
+        $existingUser = User::where('email', $socialiteUser->email)->first();
+
+        if ($existingUser) {
+            auth()->login($existingUser);
+            return redirect('/dashboard');
+        }
+
         $user = User::updateOrCreate([
-            'id' => $githubUser->id,
+            'id' => $socialiteUser->id,
+            'provider' => $provider, 
         ], [
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
-            'password' => bcrypt('default'),
+            'name' => $socialiteUser->name,
+            'email' => $socialiteUser->email,
         ]);
-    
-        //dd($githubUser);
-    
+
         auth()->login($user);
-    
+
         return redirect('/dashboard');
     }
-   
 }
