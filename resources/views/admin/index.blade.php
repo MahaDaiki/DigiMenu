@@ -32,11 +32,13 @@
                             @endif
                         </td>
                         <td class="text-white">
-                          <button class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">Delete user</button>
-                        </td>
                        
-                        
-                        
+                        <form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">Delete user</button>
+                        </form>
+                    </td>
                     </tr>
                 @empty
                     <tr>
@@ -53,14 +55,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-
-
-
-
-
-
-
-
 
                 </div>
             </div>

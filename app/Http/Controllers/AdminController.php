@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OperateurRequest;
 
+
 class AdminController extends Controller
 {
     /**
@@ -88,8 +89,9 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        $operateur = Operateur::findOrFail($id);
-        $operateur->delete();
+        $DeletUser = User::findOrFail($id);
+        //dd(  $DeletUser->delete());
+        $DeletUser->delete();
     
         return redirect()->route('Admin')->with('success', 'delete opperateur');
     }
