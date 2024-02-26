@@ -10,7 +10,7 @@ class Owner extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id', 'restaurant_id', 'subscription_id'];
-
+    protected $table = 'owners';
     public function user()
     {
         return $this->belongsTo(User::class);
