@@ -29,29 +29,35 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
+  
+     public function store(Request $request): RedirectResponse
+     {
+         $request->validate([
+             'name' => ['required', 'string', 'max:255'],
+             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+         ]);
+ 
+         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        $owner = Owner::create([
-            'user_id' => $user->id,
-        ]);
-        dd($owner);
-        $user->assignRole('owner');
-        event(new Registered($user , $owner));
-
-        Auth::loginUsingId($user->id);
-
-
-        return redirect(RouteServiceProvider::HOME);
-    }
+        
+        //$owner = owner::create([
+          //  'user_id' => $user->id,
+           
+        //]);
+        
+        //dd($owner);
+            $user->assignRole('owner');
+        
+      
+         
+         event(new Registered($user));
+ 
+         Auth::loginUsingId($user->id);
+ 
+         return redirect(RouteServiceProvider::HOME);
+     }
 }

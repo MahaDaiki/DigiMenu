@@ -70,6 +70,7 @@
                         @csrf
                         <input  type="submit" value="Log Out">
                         </form>
+                        
                       </li>
                      
                     @else

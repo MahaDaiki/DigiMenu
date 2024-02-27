@@ -123,14 +123,50 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js" integrity="..."
         crossorigin="anonymous"></script>
     <script>
-        setTimeout(function() {
-            var successAlert = document.getElementById('success-alert');
-            if (successAlert) {
-                successAlert.style.display = 'none';
-            }
-        }, 5000);
+       ;
 
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function slideOut(element) {
+            element.style.left = '-100%';
+            element.style.opacity = '0';
+            setTimeout(function () {
+                element.style.display = 'none';
+            }, 500);
+        }
+
+        @if ($errors->any())
+            var errorAlert = document.getElementById('error-alert');
+            errorAlert.style.left = '0';
+            setTimeout(function () {
+                slideOut(errorAlert);
+            }, 5000);
+        @endif
+
+        @if (session('success'))
+            var successAlert = document.getElementById('success-alert');
+            successAlert.style.left = '0';
+            setTimeout(function () {
+                slideOut(successAlert);
+            }, 5000);
+        @endif
+
+        var closeButton = document.querySelector('#error-alert button, #success-alert button');
+        if (closeButton) {
+            closeButton.addEventListener('click', function () {
+                var parent = this.closest('.flex');
+                parent.style.left = '-100%';
+                parent.style.opacity = '0';
+                setTimeout(function () {
+                    parent.style.display = 'none';
+                }, 500);
+            });
+        }
+    });
+</script>
+
 </body>
 
 </html>

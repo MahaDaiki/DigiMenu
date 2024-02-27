@@ -241,6 +241,8 @@
                                     @endauth
 
                                     @endif
+                                   
+
                                 </ul>
                             </div>
                         </div>
@@ -383,12 +385,14 @@
 
                 </div>
             @else
+            @role('admin')
                 <div class="heading">
                     <h2>No Plan Added</h2>
                     <div class="mt-5">
                         <a class="btn btn-primary" href="{{ route('subscriptions.create') }}">Add Plan</a>
                     </div>
                 </div>
+                @endrole
             @endif
 
         </div>
