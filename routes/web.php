@@ -31,11 +31,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/subscriptions', [SubscriptionController::class, 'show'])->name('subscriptions.show');
-Route::get('/add_subscription', [SubscriptionController::class, 'create'])->name('subscriptions.create');
-Route::post('/add_subscription', [SubscriptionController::class, 'store'])->name('subscriptions.store');
-Route::get('/edit_subscription/{id}', [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
-Route::post('/edit_subscription', [SubscriptionController::class, 'update'])->name('subscriptions.update');
+
+Route::prefix('subscriptions')->name('subscriptions.')->group(function () {
+    Route::get('/', [SubscriptionController::class, 'show'])->name('show');
+    Route::get('/add', [SubscriptionController::class, 'create'])->name('create');
+    Route::post('/add', [SubscriptionController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [SubscriptionController::class, 'edit'])->name('edit');
+    Route::post('/edit', [SubscriptionController::class, 'update'])->name('update');
+});
+
 
 Route::get('email_test', function() {
     // $mailer = new UserMail();
@@ -61,12 +65,17 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
         return view('owner_dashboard'); 
     })->name('Ownerdashboard');
 });
-//subAdmin
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
+    //add operatuer
     Route::get('/ajouter operateur', [AdminController::class, 'create'] )->name('operateur');
     Route::post('/store',[AdminController::class, 'store'])->name('Store');
+    //add subAdmin
+    Route::get('/ajouter SubAdmin', [AdminController::class, 'createSubadmin'] )->name('subAdmin');
+    Route::post('/AddSubAdmin',[AdminController::class, 'AddSubAdmin'])->name('AddSubAdmin');
+    //delete 
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('user.destroy');
     //Mail::to('mohmmedleah81@gmail.com')
     //->send(new LaravelMail());
