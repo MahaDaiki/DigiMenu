@@ -48,14 +48,23 @@
                     <ul class="rd-navbar-nav">
                       <li class="rd-nav-item active"><a class="rd-nav-link" href="">Home</a>
                       </li>
+                      @role('admin|owner')
                       <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url('/subscriptions') }}">Plans</a>
                       </li>
+                      @endrole
+                     
                       <li class="rd-nav-item"><a class="rd-nav-link" href="">Restaurants</a>
                       </li>
                       @if (Route::has('login'))
                       @auth
-                      <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
-                      </li>
+                     @role('admin')
+                     <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('Admin')}}">Dashboard</a>
+                     </li>
+                     @endrole
+                     @role('owner')
+                     <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('Admin')}}">Dashboard</a>
+                     </li>
+                     @endrole
                       <li class="rd-nav-item">
                         <form method="POST" action="{{ route('logout') }}">
                         @csrf

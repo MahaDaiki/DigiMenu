@@ -212,9 +212,11 @@
                                     <li class="rd-nav-item"><a class="rd-nav-link"
                                             href="{{ route('subscriptions.show') }}">Plans</a>
                                     </li>
+                                    @role('admin')
                                     <li class="rd-nav-item"><a class="rd-nav-link"
                                             href="{{ route('subscriptions.create') }}">Add Plan (For Admin)</a>
                                     </li>
+                                    @endrole
                                     </li>
                                     <li class="rd-nav-item"><a class="rd-nav-link" href="">Restaurants</a>
                                     </li>

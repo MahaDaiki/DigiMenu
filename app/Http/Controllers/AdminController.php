@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Owner;
 use App\Models\Opperateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OperateurRequest;
+
 
 class AdminController extends Controller
 {
@@ -32,22 +35,31 @@ class AdminController extends Controller
      */
     public function store(OperateurRequest $request)
     {
-        
         $validatedData = $request->validated();
+    
+        
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
-        //dd($user);
-        $operateur = Opperateur::create([
-            'user_id' => $user->id,
-        ]);
-        dd($operateur);
-        return redirect()->route('Admin')->with('success', 'Opperatuer cree avec success!');
+    
         
+        //$restaurantId = 5;
+        //$operateur = Opperateur::create([
+          //  'user_id' => $user->id,
+            //'restaurant_id' => $restaurantId,
+        //]);
+ 
+        return redirect()->route('Admin')->with('success', 'Opperateur cree avec success!');
     }
+    
+    
+ 
 
+    
+     
+    
     /**
      * Display the specified resource.
      */
@@ -77,8 +89,9 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        $operateur = Operateur::findOrFail($id);
-        $operateur->delete();
+        $DeletUser = User::findOrFail($id);
+        //dd(  $DeletUser->delete());
+        $DeletUser->delete();
     
         return redirect()->route('Admin')->with('success', 'delete opperateur');
     }
