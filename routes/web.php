@@ -61,7 +61,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
         return view('owner_dashboard'); 
     })->name('Ownerdashboard');
 });
-
+//subAdmin
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');

@@ -11,8 +11,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="icon" href="{{ asset('assets/images/favicon.ico" type="image/x-icon') }}">
-    <link rel="stylesheet" type="text/css"
-        href="//fonts.googleapis.com/css?family=Poppins:300,300i,400,500,600,700,800,900,900i%7CPT+Serif:400,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Poppins:300,300i,400,500,600,700,800,900,900i%7CPT+Serif:400,700">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -168,6 +167,7 @@
             background-color: #19c8fa;
             padding: 12px 20px;
         }
+
     </style>
 </head>
 
@@ -189,19 +189,13 @@
     <header class="section page-header">
         <!-- RD Navbar-->
         <div class="rd-navbar-wrap">
-            <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
-                data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed"
-                data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static"
-                data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static"
-                data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px"
-                data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
                 <div class="rd-navbar-main-outer">
                     <div class="rd-navbar-main">
                         <!-- RD Navbar Panel-->
                         <div class="rd-navbar-panel">
                             <!-- RD Navbar Toggle-->
-                            <button class="rd-navbar-toggle"
-                                data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
                             <!-- RD Navbar Brand-->
                             <div class="rd-navbar-brand"><a href="">DigiMenu</div>
                         </div>
@@ -211,35 +205,33 @@
                                 <ul class="rd-navbar-nav">
                                     <li class="rd-nav-item active"><a class="rd-nav-link" href="">Home</a>
                                     </li>
-                                    <li class="rd-nav-item"><a class="rd-nav-link"
-                                            href="{{ route('subscriptions.show') }}">Plans</a>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('subscriptions.show') }}">Plans</a>
                                     </li>
-                                    <li class="rd-nav-item"><a class="rd-nav-link"
-                                            href="{{ route('subscriptions.create') }}">Add Plan (For Admin)</a>
+                                    @role('admin')
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('subscriptions.create') }}">Add Plan (For Admin)</a>
                                     </li>
+                                    @endrole
                                     <li class="rd-nav-item"><a class="rd-nav-link" href="">Restaurants</a>
                                     </li>
                                     @if (Route::has('login'))
-                                        @auth
-                                            <li class="rd-nav-item"><a class="rd-nav-link"
-                                                    href="{{ url('/dashboard') }}">Dashboard</a>
-                                            </li>
-                                            <li class="rd-nav-item">
-                                                <form method="POST" action="{{ route('logout') }}">
-                                                    @csrf
-                                                    <input type="submit" value="Log Out">
-                                                </form>
-                                            </li>
-                                        @else
-                                            <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('login') }}">Log
-                                                    in</a>
-                                                @if (Route::has('register'))
-                                            <li class="rd-nav-item"><a class="rd-nav-link"
-                                                    href="{{ route('register') }}">Register</a>
+                                    @auth
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li class="rd-nav-item">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <input type="submit" value="Log Out">
+                                        </form>
+                                    </li>
+                                    @else
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('login') }}">Log
+                                            in</a>
+                                        @if (Route::has('register'))
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{{ route('register') }}">Register</a>
                                         @endif
-                                    @endauth
+                                        @endauth
 
-                                    @endif
+                                        @endif
                                 </ul>
                             </div>
                         </div>
@@ -253,8 +245,7 @@
 
     <!-- Swiper-->
     <section class="section section-lg section-main-bunner section-main-bunner-filter text-center">
-        <div class="main-banner-img"
-            style="background-image: url('{{ asset('images/bg-banner-2.jpg') }}'); background-size: cover;"></div>
+        <div class="main-banner-img" style="background-image: url('{{ asset('images/bg-banner-2.jpg') }}'); background-size: cover;"></div>
         <div class="main-bunner-inner">
             <div class="container">
                 <div class="box-default">
@@ -270,6 +261,7 @@
 
 
     <!-- Featured Offers-->
+    @role('admin')
     <section class="section section-lg bg-default">
 
         <div class="heading">
@@ -299,7 +291,7 @@
 
         </div>
     </section>
-
+    @endrole('admin')
 
     <!-- Page Footer-->
     <footer class="section footer-minimal context-dark">
@@ -309,21 +301,15 @@
                     <div class="col-12"><a href="index.html">DigiMenus</a></div>
                     <div class="col-12">
                         <ul class="social-list">
-                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-facebook"
-                                    href="#"></a></li>
-                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram"
-                                    href="#"></a></li>
-                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-twitter"
-                                    href="#"></a></li>
-                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-youtube-play"
-                                    href="#"></a></li>
-                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-pinterest-p"
-                                    href="#"></a></li>
+                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-facebook" href="#"></a></li>
+                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-instagram" href="#"></a></li>
+                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-twitter" href="#"></a></li>
+                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-youtube-play" href="#"></a></li>
+                            <li><a class="icon icon-sm icon-circle icon-circle-md icon-bg-white fa-pinterest-p" href="#"></a></li>
                         </ul>
                     </div>
                 </div>
-                <p class="rights"><span>&copy;&nbsp; </span><span
-                        class="copyright-year"></span><span>&nbsp;</span><span>DigiMenu</span><span>.&nbsp;</span><span>All
+                <p class="rights"><span>&copy;&nbsp; </span><span class="copyright-year"></span><span>&nbsp;</span><span>DigiMenu</span><span>.&nbsp;</span><span>All
                         Rights Reserved.</span><span>&nbsp;</span><a href="#">Privacy Policy</a>.
                     Design&nbsp;by&nbsp;</p>
             </div>
