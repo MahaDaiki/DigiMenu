@@ -29,9 +29,15 @@
                         {{ __('Admin Dashboard') }}
                     </x-nav-link>
                 </div>
+                
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('operateur')" :active="request()->routeIs('operateur')">
                         {{ __('Ajouter un operateur') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('subAdmin')" :active="request()->routeIs('subAdmin')">
+                        {{ __('Ajouter SubAdmin') }}
                     </x-nav-link>
                 </div>
               

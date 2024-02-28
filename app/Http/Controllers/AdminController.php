@@ -42,7 +42,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'user_type' => 'required|in:operateur,subAdmin', 
+            
         ]);
     
         $user = User::create([
@@ -50,27 +50,38 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-    
-        $role = null;
-
-        if ($request->user_type === 'operateur') {
-            $role = Role::where('name', 'opperateur')->first();
-            Operateur::create(['user_id' => $user->id]);
-        } elseif ($request->user_type === 'subAdmin') {
-            $role = Role::where('name', 'sub_admin')->first();
-            Sub_Admin::create(['user_id' => $user->id]);
-        }
-    
-      
-        if ($role) {
-            $user->assignRole($role);
-        }
-    
-        return redirect()->route('Admin')->with('success', 'Utilisateur créé avec succès!');
+        
+            $user->assignRole('opperateur');
+        return redirect()->route('Admin')->with('success', 'Operateur créé avec succès!');
     }
     
+
+
+
+    public function createSubadmin()
+    {
+        return view('admin.Addsub_admin');
+    }
+
+    public function AddSubAdmin(OperateurRequest $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            
+        ]);
     
-    
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        
+            $test = $user->assignRole('sub_admin');
+            //dd($test);
+        return redirect()->route('Admin')->with('success', 'Sub Admin créé avec succès!');
+    }
  
 
     
