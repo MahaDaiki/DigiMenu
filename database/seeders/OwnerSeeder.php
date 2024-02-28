@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Owner;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,6 +22,12 @@ class OwnerSeeder extends Seeder
             'password' => bcrypt('owner'),
             
         ]);
-        $user->assignRole('user', 'owner');
+        $owner = Owner::create([
+            'user_id' => $user->id,
+            'restaurant_id' => null,
+            'subscription_id' => null,
+        ]);
+        $user->assignRole('owner');
+
     }
 }

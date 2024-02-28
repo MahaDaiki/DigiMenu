@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Opperateur extends Model
 {
     use HasFactory , SoftDeletes;
-    protected $fillable = ['user_id', 'restaurant_id'];
     protected $table = 'opperateur';
+    protected $fillable = ['user_id', 'restaurant_id'];
+    
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -18,7 +18,7 @@
                 </div>
                 @role('owner')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('Ownerdashboard')" :active="request()->routeIs('Owner')">
+                    <x-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('Owner')">
                         {{ __('Owner Dashboard') }}
                     </x-nav-link>
                 </div>

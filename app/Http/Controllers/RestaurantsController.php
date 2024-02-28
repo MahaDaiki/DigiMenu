@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Restaurant;
+use App\Models\Owner;
+use App\Models\User;
 use App\Models\Restaurants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class RestaurantsController extends Controller
@@ -31,7 +33,12 @@ class RestaurantsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $user = Auth::user();
+        if ($user->owner && $user->owner->restaurant_id !== null) {
+            return redirect()->back()->with('error', 'User can only add one restaurant.');
+        }
+
+        else {$validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'open_at' => [
@@ -44,11 +51,15 @@ class RestaurantsController extends Controller
                 'date_format:H:i',
             ],
         ]);
-
-        Restaurants::create($validatedData);
-
+        $restaurant = Restaurants::create($validatedData);
+        
+        $user->owner->update([
+            'restaurant_id' => $restaurant->id,
+        ]);
         return redirect()->back()->with('success', 'Restaurant created successfully');
     }
+    }
+    
 
     /**
      * Display the specified resource.
@@ -83,7 +94,7 @@ class RestaurantsController extends Controller
             'close_at' => [
                 'required',
                 'date_format:H:i',
-                Rule::unique('restaurants')->ignore($id),
+              
             ],
         ]);
 

@@ -3,20 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class OwnerController extends Controller
+class MenusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = Auth::user();
-        $restaurants = $user->owner->restaurant;
-    
-        return view('owner_dashboard', compact('restaurants'));
-       
+        
     }
 
     /**
