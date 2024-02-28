@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
+use Spatie\Permission\Traits\HasRoles;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Notifications\Notifiable;
 
 class RegisteredUserController extends Controller
 {
+    use Notifiable ,HasRoles;
     /**
      * Display the registration view.
      */
@@ -43,17 +46,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        
-        //$owner = owner::create([
-          //  'user_id' => $user->id,
-           
-        //]);
-        
-        //dd($owner);
             $user->assignRole('owner');
         
-      
-         
          event(new Registered($user));
  
          Auth::loginUsingId($user->id);
