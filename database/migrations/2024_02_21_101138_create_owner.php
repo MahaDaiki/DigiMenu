@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('owner', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('restaurant_id')->constrained()->nullable();
-            $table->foreignId('subscription_id')->constrained()->nullable(); 
+            $table->foreignId('restaurant_id')->nullable()->constrained();
+            $table->foreignId('subscription_id')->nullable()->constrained(); 
             $table->timestamps();
         });
     }

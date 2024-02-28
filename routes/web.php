@@ -9,6 +9,7 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\googelSocialiteController;
+use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Mail\UserMail;
 use App\Models\Subscription;
@@ -55,12 +56,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//gestion des roles
+
 Route::middleware(['auth', 'role:owner'])->group(function () {
-    Route::get('/owner-dashboard', function () {
-        return view('owner_dashboard'); 
-    })->name('Ownerdashboard');
+    Route::get('/owner_dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
 });
+Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
+Route::resource('restaurants', RestaurantsController::class);
+
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
