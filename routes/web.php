@@ -81,7 +81,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 //Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
 
- //gestion email
 
 
 //login & regster github google
