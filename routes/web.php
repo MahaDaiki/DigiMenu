@@ -60,14 +60,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner_dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
 });
-<<<<<<< HEAD
 Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
 Route::resource('restaurants', RestaurantsController::class);
 
 
-=======
-//subAdmin
->>>>>>> c22c8c7fd0434fa8e31657eb0455183fd11b8e01
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');

@@ -20,13 +20,17 @@
                 
 
 
+                    @if (empty($restaurants))
+                        
                     
-                    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#restaurantModal" >
+                    <button type="button" class=" btn  btn-primary" style="color:green " data-toggle="modal" data-target="#restaurantModal" >
                     +
                     </button>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modifyRestaurantModal">
+                    @else<button type="button" class="btn btn-warning" style="color:rgb(88, 84, 79)" data-toggle="modal" data-target="#modifyRestaurantModal">
                         Modify
                     </button>
+                    @endif
+                    <button type="button" class="btn btn-danger" style="color:red; border:red">x</button>
 
                 
                     <div class="modal fade" id="restaurantModal" tabindex="-1" role="dialog" aria-labelledby="restaurantModalLabel" aria-hidden="true">
