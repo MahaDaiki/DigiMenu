@@ -60,14 +60,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner_dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
 });
+<<<<<<< HEAD
 Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
 Route::resource('restaurants', RestaurantsController::class);
 
 
+=======
+//subAdmin
+>>>>>>> c22c8c7fd0434fa8e31657eb0455183fd11b8e01
 Route::middleware(['auth', 'role:admin'])->group(function () {
+
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
     Route::get('/ajouter operateur', [AdminController::class, 'create'] )->name('operateur');
     Route::post('/store',[AdminController::class, 'store'])->name('Store');
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('user.destroy');
     //Mail::to('mohmmedleah81@gmail.com')
     //->send(new LaravelMail());
 });

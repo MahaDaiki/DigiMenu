@@ -34,6 +34,7 @@
                         {{ __('Ajouter un operateur') }}
                     </x-nav-link>
                 </div>
+              
                 @endrole
             </div>
 
@@ -56,7 +57,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
+                        <x-dropdown-link >
+                            {{ Auth::user()->roles->first()->name }}
+                        </x-dropdown-link>
+                       
+                        
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

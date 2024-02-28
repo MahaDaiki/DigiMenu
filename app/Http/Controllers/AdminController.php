@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Owner;
+use App\Models\Sub_Admin;
 use App\Models\Opperateur;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OperateurRequest;
+
 
 class AdminController extends Controller
 {
@@ -32,22 +38,44 @@ class AdminController extends Controller
      */
     public function store(OperateurRequest $request)
     {
-        
-        $validatedData = $request->validated();
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'user_type' => 'required|in:operateur,subAdmin', 
+        ]);
+    
         $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
         ]);
-        //dd($user);
-        $operateur = Opperateur::create([
-            'user_id' => $user->id,
-        ]);
-        dd($operateur);
-        return redirect()->route('Admin')->with('success', 'Opperatuer cree avec success!');
-        
-    }
+    
+        $role = null;
 
+        if ($request->user_type === 'operateur') {
+            $role = Role::where('name', 'opperateur')->first();
+            Operateur::create(['user_id' => $user->id]);
+        } elseif ($request->user_type === 'subAdmin') {
+            $role = Role::where('name', 'sub_admin')->first();
+            Sub_Admin::create(['user_id' => $user->id]);
+        }
+    
+      
+        if ($role) {
+            $user->assignRole($role);
+        }
+    
+        return redirect()->route('Admin')->with('success', 'Utilisateur créé avec succès!');
+    }
+    
+    
+    
+ 
+
+    
+     
+    
     /**
      * Display the specified resource.
      */
@@ -77,8 +105,9 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        $operateur = Operateur::findOrFail($id);
-        $operateur->delete();
+        $DeletUser = User::findOrFail($id);
+        //dd(  $DeletUser->delete());
+        $DeletUser->delete();
     
         return redirect()->route('Admin')->with('success', 'delete opperateur');
     }

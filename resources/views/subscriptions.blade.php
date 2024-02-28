@@ -212,9 +212,11 @@
                                     <li class="rd-nav-item"><a class="rd-nav-link"
                                             href="{{ route('subscriptions.show') }}">Plans</a>
                                     </li>
+                                    @role('admin')
                                     <li class="rd-nav-item"><a class="rd-nav-link"
                                             href="{{ route('subscriptions.create') }}">Add Plan (For Admin)</a>
                                     </li>
+                                    @endrole
                                     </li>
                                     <li class="rd-nav-item"><a class="rd-nav-link" href="">Restaurants</a>
                                     </li>
@@ -239,6 +241,8 @@
                                     @endauth
 
                                     @endif
+                                   
+
                                 </ul>
                             </div>
                         </div>
@@ -381,12 +385,14 @@
 
                 </div>
             @else
+            @role('admin')
                 <div class="heading">
                     <h2>No Plan Added</h2>
                     <div class="mt-5">
                         <a class="btn btn-primary" href="{{ route('subscriptions.create') }}">Add Plan</a>
                     </div>
                 </div>
+                @endrole
             @endif
 
         </div>

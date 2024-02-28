@@ -12,7 +12,7 @@ class Owner extends Model
     protected $table = 'owner'; 
     
     protected $fillable = ['user_id', 'restaurant_id', 'subscription_id'];
-
+   
     public function user()
     {
         return $this->belongsTo(User::class);
