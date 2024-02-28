@@ -62,6 +62,9 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
 });
 Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
 Route::resource('restaurants', RestaurantsController::class);
+Route::put('/restaurants/{id}', [RestaurantsController::class, 'update'])->name('restaurants.update');
+Route::delete('/restaurants/{id}', [RestaurantsController::class , 'destroy'])->name('restaurants.destroy');
+
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
