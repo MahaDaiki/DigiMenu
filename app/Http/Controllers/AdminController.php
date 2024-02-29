@@ -51,6 +51,15 @@ class AdminController extends Controller
             'password' => bcrypt($request->password),
         ]);
         
+        
+        //$userID = $user->id;
+        
+
+       // $operateur = Opperateur::create([
+            //'user_id' => $userID,
+            //'restaurant_id' => $restaurantId
+        //]);
+        
             $user->assignRole('opperateur');
         return redirect()->route('Admin')->with('success', 'Operateur créé avec succès!');
     }
@@ -79,7 +88,7 @@ class AdminController extends Controller
         ]);
         
             $test = $user->assignRole('sub_admin');
-            //dd($test);
+            //dd($user);
         return redirect()->route('Admin')->with('success', 'Sub Admin créé avec succès!');
     }
  

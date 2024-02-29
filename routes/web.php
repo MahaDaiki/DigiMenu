@@ -78,7 +78,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     //Mail::to('mohmmedleah81@gmail.com')
     //->send(new LaravelMail());
 });
-Route::middleware(['auth', 'role:sub_admin'])->group(function () {
+//Route::middleware(['auth', 'role:sub_admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
     //add operatuer
@@ -91,7 +91,7 @@ Route::middleware(['auth', 'role:sub_admin'])->group(function () {
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('user.destroy');
     //Mail::to('mohmmedleah81@gmail.com')
     //->send(new LaravelMail());
-});
+//});
 //Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
 
 

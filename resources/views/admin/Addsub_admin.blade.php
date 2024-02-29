@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="bg-gray-500  rounded shadow mt-6">
-        <h2 class="text-center mb-5 text-xl text-white">Create Operator</h2>
+        <h2 class="text-center mb-5 text-xl text-white">Create Sub Admin</h2>
         <form class="max-w-md mx-auto" action="{{ route('AddSubAdmin') }}" method="POST">
             @csrf
             <div class="mb-4">
@@ -9,7 +9,7 @@
             </div>
     
             <div class="mb-4">
-                <label for="email" class="block text-white">Email:</label>
+                <label for="email" class="block text-white ">Email:</label>
                 <input type="email" value="{{ old('email') }}" name="email" class="w-full px-3 py-2 border rounded">
             </div>
     
