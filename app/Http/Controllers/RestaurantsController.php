@@ -73,9 +73,10 @@ class RestaurantsController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {
+    {dd($id);
         $restaurant = Restaurants::findOrFail($id);
-        return view('restaurants.edit', compact('restaurant'));
+        return view('owner_dashboard', compact('restaurant'));
+        
     }
 
     /**
@@ -83,25 +84,11 @@ class RestaurantsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'open_at' => [
-                'required',
-                'date_format:H:i',
-                'before:close_at',
-            ],
-            'close_at' => [
-                'required',
-                'date_format:H:i',
-              
-            ],
-        ]);
-
+    
         $restaurant = Restaurants::findOrFail($id);
-        $restaurant->update($validatedData);
+    $restaurant->update($request->all());
 
-        return redirect()->back()->with('success', 'Restaurant updated successfully');
+    return view('owner_dashboard')->with('success', 'Restaurant updated successfully');
     }
 
     /**
@@ -109,9 +96,13 @@ class RestaurantsController extends Controller
      */
     public function destroy($id)
     {
-        $restaurant = Restaurants::findOrFail($id);
-        $restaurant->delete();
 
-        return redirect()->back()->with('success', 'Restaurant deleted successfully');
+
+    $restaurant = Restaurants::findOrFail($id);
+    $restaurant->delete();
+
+    return redirect()->route('owner_dashboard')->with('success', 'Restaurant deleted successfully');
+
+
     }
 }
