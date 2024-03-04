@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Menus extends Model 
 {
     use HasFactory;
-    protected $fillable = ['QRCode', 'restaurant_id'];
+    protected $fillable = ['title','QRCode', 'restaurant_id'];
 
     public function articles()
     {
@@ -24,6 +24,13 @@ class Menus extends Model
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('videos')
+            ->singleFile();
+
+    }
+
+    public function QR(): void
+    {
+        $this->addMediaCollection('qrcodes')
             ->singleFile();
     }
     // public function getMedia(string $collectionName = 'default', $filters = [])

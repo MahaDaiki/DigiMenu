@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menus;
 use App\Models\Owner;
-use App\Models\User;
 use App\Models\Restaurants;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -56,7 +57,8 @@ class RestaurantsController extends Controller
         $user->owner->update([
             'restaurant_id' => $restaurant->id,
         ]);
-        return redirect()->back()->with('success', 'Restaurant created successfully');
+      
+      return view('owner_dashboard')->with('success', 'Restaurant created successfully');
     }
     }
     

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->string("Video")->nullable();
-            $table->string("QRCode");
+            $table->string("title");
+            // $table->string("Video")->nullable();
+            $table->string("QRCode")->nullable();
             $table->foreignId('restaurant_id')->constrained();
             $table->timestamps();
         });

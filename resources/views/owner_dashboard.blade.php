@@ -25,15 +25,16 @@
                         <button type="button" class="btn btn-warning mt-3" style="color: white; background-color: rgb(70, 79, 81); border: red;" data-toggle="modal" data-target="#modifyRestaurantModal">
                             Modify
                         </button>
+                        <form action="{{ route('restaurants.destroy', ['id' => $restaurants->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger mt-3" onclick="return confirm('Are you sure you want to delete this restaurant?');" style="color: white; background-color: red; border: red;">
+                              X
+                            </button>
+                        </form></div>
                     @endif
-                    <form action="{{ route('restaurants.destroy', ['id' => $restaurants->id]) }}" method="post" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger mt-3" onclick="return confirm('Are you sure you want to delete this restaurant?');" style="color: white; background-color: red; border: red;">
-                          X
-                        </button>
-                    </form></div>
-    
+                   
+                    @if (!empty($restaurants))
                     <h1 class="h2 mt-4">My Restaurant:</h1>
                     <div class="d-flex mx-auto" style="font-size:30px">
                     <i class="fas fa-utensils"></i><h1 class="ml-2 fs-3" >{{ $restaurants->name }}</h1></div>
@@ -42,6 +43,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </section>
     
                     <div class="modal fade" id="restaurantModal" tabindex="-1" role="dialog" aria-labelledby="restaurantModalLabel" aria-hidden="true">
@@ -98,6 +100,7 @@
                 </div>
             </div>
         </div> 
+        @if (!empty($restaurants))
         <div class="modal fade" id="modifyRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modifyRestaurantModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -148,6 +151,7 @@
                                 <button type="submit" class="btn btn-primary" style="background: blue">Save changes</button>
                             </div>
                         </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -155,11 +159,16 @@
     </div>
 </div>
 </div>
-
-      
-
-        
     </section>
-    <section></section>
+{{-- menu --}}
+<section class="section  bg-gray-1 text-center">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-9 col-lg-7 card p-4">
+                <h1>Menus</h1>
+            </div>
+        </div>
+    </div>
+</section>
 
 </x-app-layout>
