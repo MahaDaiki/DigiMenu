@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('opperateur', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->nullable();
-            $table->foreignId('restaurant_id')->constrained();
+            $table->foreignId('restaurant_id')->constrained()->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
