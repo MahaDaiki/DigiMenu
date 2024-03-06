@@ -2,19 +2,23 @@
 
 //use App\Mail\LaravelMail;
 //use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\googelSocialiteController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\MenusController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\Auth\googelSocialiteController;
 use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Mail\UserMail;
 use App\Models\Subscription;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+
+
 
 
 /*
@@ -55,18 +59,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
 
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner_dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
-});
+
+Route::get('/MenuManage/{id}', [ArticleController::class, 'index'])->name('menu.manage');
+Route::post('/menuManage/{menu_id}/add-article', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('articles/{article}/edit', [ArticleController::class,'edit' ])->name('articles.edit');
+Route::put('articles/{article}', [ArticleController::class ,'update'])->name('articles.update');
+Route::get('articles/{article}/delete', [ArticleController::class ,'delete'])->name('articles.delete');
+Route::delete('articles/{article}', [ArticleController::class ,'destroy'])->name('articles.destroy');
+
+
+
 Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
 Route::resource('restaurants', RestaurantsController::class);
 Route::put('/restaurants/{id}', [RestaurantsController::class, 'update'])->name('restaurants.update');
 Route::delete('/restaurants/{id}', [RestaurantsController::class , 'destroy'])->name('restaurants.destroy');
+Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
 
-
-
+});
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');

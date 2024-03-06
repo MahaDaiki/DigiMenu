@@ -10,11 +10,12 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Menus extends Model 
 {
     use HasFactory;
+    protected $table = 'menus';
     protected $fillable = ['title','QRCode', 'restaurant_id'];
 
     public function articles()
     {
-        return $this->hasMany(Articles::class);
+        return $this->hasMany(Articles::class, 'menu_id');
     }
 
     public function restaurant()

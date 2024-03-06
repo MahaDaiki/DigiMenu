@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Articles;
 use App\Models\Menus;
 use App\Models\Restaurants;
-use BaconQrCode\Encoder\QrCode;
+
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class MenusController extends Controller
 {
@@ -22,40 +24,26 @@ class MenusController extends Controller
      * Show the form for creating a new resource.
      */
    
-     public function showCreateMenuForm()
-     {
-         return view('menus.create_menu_form');
-     }
+   
  
      /**
       * Store a newly created menu in storage.
       */
-     public function createMenu(Request $request)
-     {
-         $validatedData = $request->validate([
-             'title' => 'required|string',
-         ]);
- 
-         $restaurant = Restaurants::where('id', auth()->user()->restaurant_id)->first();
- 
-         // Create a new menu
-         $menu = new Menus([
-             'title' => $validatedData['title'],
-         ]);
- 
-         // Save the menu to get an ID
-         $restaurant->menus()->save($menu);
- 
-         // Generate QR code with the menu ID
-         $qrCode = QrCode::size(200)->generate(route('menus.show', ['id' => $menu->id]));
- 
-         // Update the menu with the QR code
-         $menu->update([
-             'QRCode' => $qrCode,
-         ]);
- 
-         return view('menus.show_menu')->with(['menu' => $menu, 'qrCode' => $qrCode]);
-     }
+      public function createMenu(Request $request)
+      {
+          $validatedData = $request->validate([
+              'title' => 'required|string',
+          ]);
+          $restaurantId = auth()->user()->owner->restaurant_id;
+          $menu = new Menus([
+              'title' => $validatedData['title'],
+              'restaurant_id' => $restaurantId,
+          ]);
+          $menu->save();
+          $qrCode = QrCode::size(200)->generate(route('owner.dashboard', ['id' => $menu->id]));
+          $menu->update(['QRCode' => $qrCode]);
+          return redirect('owner_dashboard')->with('success', 'Menu created successfully.');
+      }
  
      /**
       * Show the form for creating a new article.

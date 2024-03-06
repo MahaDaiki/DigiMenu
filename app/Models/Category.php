@@ -13,6 +13,6 @@ protected $table = 'category';
 
     public function articles()
     {
-        return $this->hasMany(Articles::class);
+        return $this->hasMany(Articles::class, 'Category_id');
     }
 }

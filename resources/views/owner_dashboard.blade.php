@@ -1,21 +1,22 @@
 <x-app-layout>
+    @if(session()->has('success'))
+    <div class="alert alert-success mt-4">
+        {{ session()->get('success') }}
+    </div>
+@endif
+
+@if(session()->has('error'))
+    <div class="alert alert-danger mt-4">
+        {{ session()->get('error') }}
+    </div>
+@endif
     <section class="section section-lg bg-gray-1 text-center">
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col-md-9 col-lg-7 card p-4">
                     <h3 class="h1">Restaurant Details</h3>
     
-                    @if(session()->has('success'))
-                        <div class="alert alert-success mt-4">
-                            {{ session()->get('success') }}
-                        </div>
-                    @endif
-    
-                    @if(session()->has('error'))
-                        <div class="alert alert-danger mt-4">
-                            {{ session()->get('error') }}
-                        </div>
-                    @endif
+                    
     <div class="d-flex mx-auto">
                     @if (empty($restaurants))
                         <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#restaurantModal">
@@ -166,9 +167,51 @@
         <div class="row justify-content-md-center">
             <div class="col-md-9 col-lg-7 card p-4">
                 <h1>Menus</h1>
+                <button type="button" class="btn " data-toggle="modal" data-target="#menuModal">
+                    Create Menu
+                </button>
+                <div class="row">
+                    @foreach ($menu as $menuItem)
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title h4 ">{{ $menuItem->title }}
+                                    </h2>
+                                        {!! $menuItem->QRCode !!}
+                                      
+                                </div>
+                                <a href="{{ route('menu.manage', ['id' => $menuItem->id]) }}" class="btn btn-primary">Go to MenuManage</a>
+                                       
+                            </div>
+                        </div>
+                    @endforeach
+                </div> 
+                <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="menuModalLabel">Create a New Menu</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('menu.create') }}" method="post">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="menuTitle">Menu Title:</label>
+                                        <input type="text" class="form-control" id="menuTitle" name="title" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Create Menu</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    
 </section>
 
 </x-app-layout>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             // $table->string("Video")->nullable();
-            $table->string("QRCode")->nullable();
+            $table->text("QRCode")->nullable();
             $table->foreignId('restaurant_id')->constrained();
             $table->timestamps();
         });

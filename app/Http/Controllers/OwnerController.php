@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,10 @@ class OwnerController extends Controller
     {
         $user = Auth::user();
         $restaurants = $user->owner->restaurant;
+        $id = $user->owner->restaurant_id;
+        $menu = Menus::where('restaurant_id', $id)->get();       
     
-        return view('owner_dashboard', compact('restaurants'));
+        return view('owner_dashboard', compact('restaurants','menu'));
        
     }
 
