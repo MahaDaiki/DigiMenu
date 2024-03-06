@@ -78,8 +78,16 @@ Route::resource('restaurants', RestaurantsController::class);
 Route::put('/restaurants/{id}', [RestaurantsController::class, 'update'])->name('restaurants.update');
 Route::delete('/restaurants/{id}', [RestaurantsController::class , 'destroy'])->name('restaurants.destroy');
 Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
+Route::get('/menu/pdf/{id}', [MenusController::class, 'generatePdf'])->name('menu.pdf');
+
+
+
 
 });
+Route::get('/', [RestaurantsController::class, 'index'])->name('welcome');
+Route::get('/restaurant-menus/{restaurant}', [MenusController::class, 'display'])->name('restaurant.menus');
+// Route::get('/restaurant-menus/{restaurant}', [MenusController::class, 'index'])->name('restaurant.menus');
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');

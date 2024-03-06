@@ -18,7 +18,8 @@ class RestaurantsController extends Controller
     public function index()
     {
         $restaurants = Restaurants::all();
-        return view('', compact('restaurants'));
+        $menus = Menus::with('articles')->get();
+        return view('welcome', compact('restaurants','menus'));
     }
 
     /**

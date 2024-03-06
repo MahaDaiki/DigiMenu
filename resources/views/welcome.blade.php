@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/css/fonts.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
     </head>
     <body class="antialiased">
@@ -53,8 +54,7 @@
                       </li>
                       @endrole
                      
-                      <li class="rd-nav-item"><a class="rd-nav-link" href="">Restaurants</a>
-                      </li>
+                     
                       @if (Route::has('login'))
                       @auth
                      @role('admin')
@@ -126,7 +126,7 @@
           <div class="row justify-content-center text-center">
             <div class="col-md-9 col-lg-7 wow-outer">
               <div class="wow slideInDown">
-                <h2>Featured Offers</h2>
+                <h2>Restaurants</h2>
                 <p class="text-opacity-80">We take pride in providing a diverse array of menus from various restaurants, offering a wide range of culinary delights to satisfy every palate. Explore our selection, showcasing the best dishes from different establishments, ensuring a variety of tastes and the utmost quality for our visitors and guests.</p>
               </div>
             </div>
@@ -135,159 +135,62 @@
             <div class="col-md-6 col-lg-4 wow-outer">
               <div class="wow fadeInUp">
                 <div class="product-featured">
+                  @foreach ($restaurants as $restaurant)
+                      
+                 
                   <div class="product-featured-figure"><img src="images/product-1-370x395.jpg" alt="" width="370" height="395"/>
-                    <div class="product-featured-button"><a class="button button-primary" href="#">order now</a></div>
+                    <div class="product-featured-button">  <a class="button button-primary" href="{{ route('restaurant.menus', ['restaurant' => $restaurant->id]) }}">Check Restaurant</a>
+                    </div></div>
                   </div>
                   <div class="product-featured-caption">
-                    <h4><a class="product-featured-title" href="#">Ravioli</a></h4>
-                    <p class="big">$8</p>
+                    <div class="d-flex mx-auto m-1" style="font-size:30px">
+                      <i class="fas fa-utensils"></i><h4 class="ml-2 fs-3" >{{ $restaurant->name }}</h4></div>
+                     <div class="d-flex mx-auto m-1" style="font-size:20px"> <i class="fas fa-map-marker-alt"></i><h5 class="ml-2">{{ $restaurant->location }}</h5></div>
+                     <div class="d-flex mx-auto m-1" style="font-size:20px"> <i class="fa-solid fa-clock"></i><h5 class="ml-2">Open at: {{ $restaurant->open_at }}<br> Close at: {{ $restaurant->close_at }}</h5></div>
+                  </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-lg-4 wow-outer">
-              <div class="wow fadeInUp">
-                <div class="product-featured">
-                  <div class="product-featured-figure"><img src="{{ asset('images/product-2-370x395.jpg')}}" alt="" width="370" height="395"/>
-                    <div class="product-featured-button"><a class="button button-primary" href="#">order now</a></div>
-                  </div>
-                  <div class="product-featured-caption">
-                    <h4><a class="product-featured-title" href="#">Black Pasta</a></h4>
-                    <p class="big">$13</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow-outer">
-              <div class="wow fadeInUp">
-                <div class="product-featured">
-                  <div class="product-featured-figure"><img src="{{ asset('images/product-3-370x395.jpg')}}" alt="" width="370" height="395"/>
-                    <div class="product-featured-button"><a class="button button-primary" href="#">order now</a></div>
-                  </div>
-                  <div class="product-featured-caption">
-                    <h4><a class="product-featured-title" href="#">Gelato</a></h4>
-                    <p class="big">$4</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+             @endforeach
         </div>
       </section>
       <section class="section section-lg bg-gray-1">
-        <div class="container">
-          <h2 class="text-center">Our Restaurant Menu</h2>
-          <div class="row">
+    <div class="container">
+        <h2 class="text-center">Our Restaurants Menus</h2>
+        <div class="row">
             <div class="col-12">
-              <div class="tabs-custom tabs-horizontal tabs-classic" id="tabs-1">
-                <ul class="nav nav-tabs nav-tabs-classic">
-                  <li class="nav-item" role="presentation"><a class="nav-link active" href="#tabs-1-1" data-toggle="tab">mains</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-1-2" data-toggle="tab">Desserts</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" href="#tabs-1-3" data-toggle="tab">drinks</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane fade show active" id="tabs-1-1">
-                    <div class="box-event-modern">
-                      <div class="event-item-modern">
-                        <p class="event-time">$25.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Osso Buco</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>Osso Buco is one of the Italian greats - slow cooked veal in a white wine tomato sauce. Meltingly tender, this is both hearty and luxurious.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$16.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Pappardelle Mimmo</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>This delicious dish tops long, wide pasta with scallops, lobster, asparagus, butter, sage and truffle oil to cater every palate.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$17.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Trippa Satriano</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>Thinly sliced herb encrusted ahi tuna topped with diced tomatoes, olives, capers, red onions and fennel. Perfect choice even for the first-time visitors!</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$18.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Filetto Di Manzo</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>Wonderful combination of prime tenderloin, winter greens, Jerusalem artichoke puree, and oxtail reduction sauce.</p>
-                        </div>
-                      </div>
+                <div class="tabs-custom tabs-horizontal tabs-classic" id="tabs-1">
+                    <ul class="nav nav-tabs nav-tabs-classic">
+                        @foreach($menus as $menu)
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link @if($loop->first) active @endif" href="#tabs-{{ $loop->iteration }}" data-toggle="tab">{{ $menu->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="tab-content">
+                        @foreach($menus as $menu)
+                            <div class="tab-pane fade show @if($loop->first) active @endif" id="tabs-{{ $loop->iteration }}">
+                                <div class="box-event-modern">
+                                    @foreach($menu->articles as $article)
+                                        <div class="event-item-modern">
+                                            <p class="event-time">${{ $article->Price }}</p>
+                                            <h4 class="event-item-modern-title"><a href="#">{{ $article->Title }}</a></h4>
+                                            <div class="event-item-modern-text">
+                                                <p>{{ $article->Content }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-1-2">
-                    <div class="box-event-modern">
-                      <div class="event-item-modern">
-                        <p class="event-time">$20.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Tiramisu</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>A Pesto’s favorite - classic Italian dessert made with lady fingers, Mascarpone cheese & espresso. Perfect for both kids and adults.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$6.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Cannoli</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>Trio tower of cannoli filled with smooth ricotta, sugar & cinnamon, with chocolate & raspberry sauces. Single cannoli is also available.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$5.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Pistachio Passion</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>Layered pistachio cream, cream cheese custard & whipped cream atop a rich walnut crust.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$4.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Chocolate-and-Pistachio Biscotti</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>At Pesto, we vary these wonderful nutty biscotti, while also dipping them in melted dark chocolate for an extra layer of flavor.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="tabs-1-3">
-                    <div class="box-event-modern">
-                      <div class="event-item-modern">
-                        <p class="event-time">$10.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Aperol Spritz</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>The most popular drink in Venice: refreshing, easygoing &…happy! Perfect to be sipped as an “Aperitivo” just before dinner - delightful!</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$9.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Negroni</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>Reward yourself with a moment of relaxation & pure pleasure while enjoying the full flavour & simplicity of a Negroni, an iconic Italian cocktail.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$11.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">Negroni Sbagliato</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>A cocktail for those who prefer more delicate flavours but nonetheless want a drink full of taste & personality.</p>
-                        </div>
-                      </div>
-                      <div class="event-item-modern">
-                        <p class="event-time">$8.89</p>
-                        <h4 class="event-item-modern-title"><a href="#">White Peach Bellini</a></h4>
-                        <div class="event-item-modern-text">
-                          <p>White Peach Bellini is a classic drink from Venice Italy of white peach purée and Prosecco. It is one of our most popular drinks at Pesto.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </section>
+    </div>
+</section>
+
       <section class="section">
         <div class="row isotope-wrap">
           <!-- Isotope Content-->

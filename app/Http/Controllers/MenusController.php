@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Articles;
 use App\Models\Menus;
 use App\Models\Restaurants;
-
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 
 class MenusController extends Controller
@@ -15,16 +16,30 @@ class MenusController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        
-    }
-
+   
+    //  public function index()
+    //  {
+    //      return view('restaurant-menus');
+    //  }
     /**
      * Show the form for creating a new resource.
      */
    
-   
+     public function display(Restaurants $restaurant) {
+        $restaurant;
+    
+        $restaurantId = $restaurant->id;
+        
+        $menus = Menus::where('restaurant_id', $restaurantId)->get();
+        
+        $articles = [];
+    foreach ($menus as $menu) {
+        $articles[$menu->id] = $menu->articles()->orderBy('Category_id')->get();
+    }
+  
+        return view('restaurant-menus', compact('restaurant', 'articles', 'menus'));
+    }
+    
  
      /**
       * Store a newly created menu in storage.
@@ -40,7 +55,7 @@ class MenusController extends Controller
               'restaurant_id' => $restaurantId,
           ]);
           $menu->save();
-          $qrCode = QrCode::size(200)->generate(route('owner.dashboard', ['id' => $menu->id]));
+          $qrCode = QrCode::size(200)->generate(route('menu.pdf', ['id' => $menu->id]));
           $menu->update(['QRCode' => $qrCode]);
           return redirect('owner_dashboard')->with('success', 'Menu created successfully.');
       }
@@ -89,7 +104,17 @@ class MenusController extends Controller
      }
       
     
-
+     public function generatePdf($menuId)
+     {
+    
+         $menu = Menus::findOrFail($menuId);
+ 
+       
+         $pdf = SnappyPdf::loadView('restaurant-menus', ['menu' => $menu]);
+ 
+        
+         return $pdf->stream('menu_' . $menuId . '.pdf');
+     }
    
 
     /**

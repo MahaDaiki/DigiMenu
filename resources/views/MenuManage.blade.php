@@ -53,7 +53,7 @@
 
         <!-- Display existing articles -->
         <div class="row">
-            @foreach ($articles as $article)
+            @forelse ($articles as $article)
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+           
         </div>
     </div>
 
@@ -158,4 +158,9 @@
             </div>
         </div>
     </div>
+    @empty
+                <div class="col-md-12">
+                    <p>No articles available.</p>
+                </div>
+            @endforelse
 </x-app-layout>
