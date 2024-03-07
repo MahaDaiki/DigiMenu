@@ -52,12 +52,21 @@ class RestaurantsController extends Controller
                 'required',
                 'date_format:H:i',
             ],
+            'video' => 'required',
         ]);
         $restaurant = Restaurants::create($validatedData);
         
         $user->owner->update([
             'restaurant_id' => $restaurant->id,
         ]);
+        $file = $request->file('video'); 
+
+        $storedFile = $file->store('uploads');
+        
+        $media = $restaurant->addMedia(storage_path('app/' . $storedFile))->toMediaCollection();
+        
+        $restaurant->id_picture = $media->id;
+        $restaurant->save();
       
       return view('owner_dashboard')->with('success', 'Restaurant created successfully');
     }
@@ -76,7 +85,7 @@ class RestaurantsController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {dd($id);
+    {
         $restaurant = Restaurants::findOrFail($id);
         return view('owner_dashboard', compact('restaurant'));
         

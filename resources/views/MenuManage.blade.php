@@ -16,8 +16,9 @@
 
         <div class="mb-4 container card mt-4 p-4 text-center">
             <h2>Add New Article</h2>
-            <form action="{{ route('articles.store', ['menu_id' => $menu->id]) }}" method="POST">
+            <form action="{{ route('articles.store', ['menu_id' => $menu->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="form-group"><input type="file" name="image"></div>
                 <div class="form-group">
                     <label for="title">Title:</label>
                     <input type="text" name="Title" id="title" class="form-control" required>
@@ -57,6 +58,10 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
+                            @foreach ($article->getMedia() as $mediaItem)
+                         
+                            <img src="{{ $mediaItem->getUrl() }}" alt="">
+                    @endforeach
                             <h2 class="card-title h4">{{ $article->Title }}</h2>
                             <p>{{ $article->Content }}</p>
                             <p>Price: {{ $article->Price }} DH</p>
@@ -64,18 +69,24 @@
                             <button type="button" class="" data-toggle="modal" data-target="#editModal" data-article-id="{{ $article->id }}">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-           
+            @empty
+                <div class="col-md-12">
+                    <p>No articles available.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 
     <!-- Edit Modal -->
+    @forelse ($articles as $article)
+        
+   
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -89,10 +100,10 @@
                     <form method="post" action="{{ route('articles.update', $article->id) }}">
                         @csrf
                         @method('PUT')
-                       
+                        <input type="text" name="" id="" value="{{ $article->id }}">
                         <div class="form-group">
                             <label for="title">Title:</label>
-                            <input type="text" name="Title" id="title" class="form-control" value=" {{ $article->Title }}" required>
+                            <input type="text" name="Title" id="title" class="form-control" value="{{ $article->Title }}" required>
                         </div>
                         
                         <div class="form-group">
@@ -116,10 +127,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            
                         
                             <div class="form-group ml-3 hidden">
-                                <!-- The hidden field for old category value (if needed) -->
+                              
                                 <input type="hidden" name="old_cat" value="{{ old('Category_id') }}">
                                 
                                 <label for="category">Category:</label>
@@ -127,7 +137,6 @@
                                     <option value="ff">ffff</option>
                                     <option value="ff">ffffffffff</option>
                                 </select>
-                                
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Article</button>
@@ -159,8 +168,6 @@
         </div>
     </div>
     @empty
-                <div class="col-md-12">
-                    <p>No articles available.</p>
-                </div>
-            @endforelse
+        <p>none</p>
+    @endforelse
 </x-app-layout>

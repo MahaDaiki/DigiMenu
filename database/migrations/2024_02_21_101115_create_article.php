@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('Title');
             $table->string('Content');
             $table->integer('Price');
-            $table->string('Image')->nullable();;
+            $table->bigInteger('id_media')->nullable();
             $table->foreignId('menu_id')->constrained();
             $table->foreignId('Category_id')->constrained('category');
             $table->timestamps();

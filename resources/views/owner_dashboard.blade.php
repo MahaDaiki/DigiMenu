@@ -41,6 +41,15 @@
                     <i class="fas fa-utensils"></i><h1 class="ml-2 fs-3" >{{ $restaurants->name }}</h1></div>
                    <div class="d-flex mx-auto " style="font-size:20px"> <i class="fas fa-map-marker-alt"></i><h2 class="ml-2">{{ $restaurants->location }}</h2></div>
                    <div class="d-flex mx-auto " style="font-size:20px"> <i class="fa-solid fa-clock"></i><h2 class="ml-2">Open at: {{ $restaurants->open_at }}, Close at: {{ $restaurants->close_at }}</h3></div>
+                    <div>
+                        @foreach ($restaurants->getMedia() as $mediaItem)
+            <video class="mx-auto" controls>
+                <source src="{{ $mediaItem->getUrl() }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+    @endforeach
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,7 +66,7 @@
                                     </button>
                                 </div>
                                 
-                                <form class="rd-form rd-mailform" method="post" action="{{ route('restaurants.store') }}">
+                                <form class="rd-form rd-mailform" method="post" action="{{ route('restaurants.store') }}" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         @if(session()->has('success'))
                                         <div class="bg-green-500 text-white p-4 mb-6">
@@ -87,6 +96,9 @@
                                             <div class="form-wrap">
                                                 <input class="form-control" id="restaurant-close-at" type="time" name="close_at">
                                                 <label class="form-label" for="restaurant-close-at">Close At</label>
+                                            </div>
+                                            <div class="form-wrap">
+                                                <input type="file" name="video">
                                             </div>
                                     
                                     </div>
@@ -146,6 +158,9 @@
                                 <div class="form-wrap">
                                     <input class="form-control" id="modify-restaurant-close-at" type="time" name="close_at" value="{{ $restaurants->first()->close_at }}">
                                     <label class="form-label" for="modify-restaurant-close-at">Close At</label>
+                                </div>
+                                <div class="form-wrap">
+                                    <input type="file" name="video" >
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -213,5 +228,29 @@
     </div>
     
 </section>
+<section class="section section-lg bg-gray-1 text-center">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-9 col-lg-7 card p-4">
+                <h3 class="h1">choose operateur</h3>
+                <form action="">
+                    <div>
+                    <select >
+                        @foreach ($operateurUsers as $op)
+                            <option value="{{ $op->id }}">{{ $op->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                    <div class="hidden">
+                    <select type="hidden" >
+                       
+                            <option value="eee">eeee</option>
+                            <option value="eee">feee</option>
+                            <option value="eee">eee</option>                            
+                       
+                    </select></div>
+                    <button type="submit">ADD OPPERATEUR</button>
+                </form>
 
+</section>
 </x-app-layout>

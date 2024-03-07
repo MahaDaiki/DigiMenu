@@ -83,6 +83,12 @@
             <h1>{{ $restaurant->name }}</h1>
             <h2>{{ $restaurant->location }}</h2>
             <h3>{{ $restaurant->open_at }}-{{ $restaurant->close_at }}</h3>
+            @foreach ($restaurant->getMedia() as $mediaItem)
+            <video class="mx-auto" controls>
+                <source src="{{ $mediaItem->getUrl() }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+    @endforeach
             </div>
         
             @foreach ($menus as $menu)

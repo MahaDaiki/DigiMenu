@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('location');
             $table->time('open_at');
             $table->time('close_at');
+            $table->bigInteger('id_media')->nullable();
             $table->timestamps();
         });
     }

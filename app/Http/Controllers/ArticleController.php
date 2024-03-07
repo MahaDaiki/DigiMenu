@@ -30,12 +30,21 @@ class ArticleController extends Controller
             'Content' => 'required|string',
             'Price' => 'required|numeric',
             'Category_id' => 'required',
+            'image'=>'required',
         ]);
 
         $validatedData['menu_id'] = $menu_id;
         
 
         $article = Articles::create($validatedData);
+        $file = $request->file('image'); 
+
+        $storedFile = $file->store('uploads');
+        
+        $media = $article->addMedia(storage_path('app/' . $storedFile))->toMediaCollection();
+        
+        $article->id_media = $media->id;
+        $article->save();
 
     //   dd($validatedData);
         return redirect()->back()->with('success', 'Article added successfully');

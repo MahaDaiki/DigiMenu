@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Articles;
 use App\Models\Menus;
 use App\Models\Restaurants;
-use Barryvdh\Snappy\Facades\SnappyPdf;
+
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
 
 
 class MenusController extends Controller
@@ -55,7 +54,7 @@ class MenusController extends Controller
               'restaurant_id' => $restaurantId,
           ]);
           $menu->save();
-          $qrCode = QrCode::size(200)->generate(route('menu.pdf', ['id' => $menu->id]));
+          $qrCode = QrCode::size(200)->generate(route('owner.dashboard', ['id' => $menu->id]));
           $menu->update(['QRCode' => $qrCode]);
           return redirect('owner_dashboard')->with('success', 'Menu created successfully.');
       }
@@ -104,17 +103,7 @@ class MenusController extends Controller
      }
       
     
-     public function generatePdf($menuId)
-     {
-    
-         $menu = Menus::findOrFail($menuId);
- 
-       
-         $pdf = SnappyPdf::loadView('restaurant-menus', ['menu' => $menu]);
- 
-        
-         return $pdf->stream('menu_' . $menuId . '.pdf');
-     }
+
    
 
     /**

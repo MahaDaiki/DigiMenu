@@ -14,6 +14,9 @@ class RolesController extends Controller
         if ($user->hasRole('owner')) {
             return redirect()->route('owner.dashboard');
         } 
+        elseif ($user->hasRole('opperateur')) {
+            return redirect()->route('opperateur.dashboard');
+        }
         else {
             
             abort(403, 'Unauthorized');
