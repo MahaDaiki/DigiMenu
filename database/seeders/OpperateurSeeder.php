@@ -2,32 +2,33 @@
 
 namespace Database\Seeders;
 
-use App\Models\Owner;
+use App\Models\Opperateur;
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
-class OwnerSeeder extends Seeder
+class OpperateurSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+        
         $user = User::create( [
-            'name' => 'Owner',
-            'email' => 'owner@gmail.com',
+            'name' => 'Opperateur',
+            'email' => 'opperateur@gmail.com',
             'email_verified_at' => now(),
             
-            'password' => bcrypt('owner'),
+            'password' => bcrypt('password'),
             
         ]);
-        $owner = Owner::create([
+        $opperateur = Opperateur::create([
             'user_id' => $user->id,
             'restaurant_id' => null,
-            'subscription_id' => null,
+          
         ]);
-        $user->assignRole('owner');
+        $user->assignRole('opperateur');
 
     }
 }

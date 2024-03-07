@@ -18,7 +18,7 @@
                 </div>
                 @role('owner')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('Ownerdashboard')" :active="request()->routeIs('Owner')">
+                    <x-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('Owner')">
                         {{ __('Owner Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -29,11 +29,18 @@
                         {{ __('Admin Dashboard') }}
                     </x-nav-link>
                 </div>
+                
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('operateur')" :active="request()->routeIs('operateur')">
                         {{ __('Ajouter un operateur') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('subAdmin')" :active="request()->routeIs('subAdmin')">
+                        {{ __('Ajouter SubAdmin') }}
+                    </x-nav-link>
+                </div>
+              
                 @endrole
             </div>
 
@@ -56,7 +63,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
+                        <x-dropdown-link >
+                            {{ Auth::user()->roles->first()->name }}
+                        </x-dropdown-link>
+                       
+                        
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

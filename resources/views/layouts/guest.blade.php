@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="{{ asset('assets/css/fonts.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" integrity="...">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-W8hQ5b93RiI/eJ7Zl1sL5f7Ip06R1yrcP4I3PBp5kE60Uf87sBVJwHhHcmhVfU1BOUKhYcm4kQJQ6gkuMOF9Ig==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

@@ -2,18 +2,23 @@
 
 //use App\Mail\LaravelMail;
 //use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\googelSocialiteController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\MenusController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\Auth\googelSocialiteController;
+use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\SubscriptionController;
 use App\Mail\UserMail;
 use App\Models\Subscription;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+
+
 
 
 /*
@@ -54,27 +59,65 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
 
-//gestion des roles
 Route::middleware(['auth', 'role:owner'])->group(function () {
-    Route::get('/owner-dashboard', function () {
-        return view('owner_dashboard'); 
-    })->name('Ownerdashboard');
+    Route::get('/owner_dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
+
+Route::get('/MenuManage/{id}', [ArticleController::class, 'index'])->name('menu.manage');
+Route::post('/menuManage/{menu_id}/add-article', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('articles/{article}/edit', [ArticleController::class,'edit' ])->name('articles.edit');
+Route::put('articles/{article}', [ArticleController::class ,'update'])->name('articles.update');
+Route::get('articles/{article}/delete', [ArticleController::class ,'delete'])->name('articles.delete');
+Route::delete('articles/{article}', [ArticleController::class ,'destroy'])->name('articles.destroy');
+
+
+
+Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
+Route::resource('restaurants', RestaurantsController::class);
+Route::put('/restaurants/{id}', [RestaurantsController::class, 'update'])->name('restaurants.update');
+Route::delete('/restaurants/{id}', [RestaurantsController::class , 'destroy'])->name('restaurants.destroy');
+Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
+Route::get('/menu/pdf/{id}', [MenusController::class, 'generatePdf'])->name('menu.pdf');
+
+
+
+
 });
+Route::get('/', [RestaurantsController::class, 'index'])->name('welcome');
+Route::get('/restaurant-menus/{restaurant}', [MenusController::class, 'display'])->name('restaurant.menus');
+// Route::get('/restaurant-menus/{restaurant}', [MenusController::class, 'index'])->name('restaurant.menus');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
+    //add operatuer
     Route::get('/ajouter operateur', [AdminController::class, 'create'] )->name('operateur');
     Route::post('/store',[AdminController::class, 'store'])->name('Store');
+    //add subAdmin
+    Route::get('/ajouter SubAdmin', [AdminController::class, 'create'] )->name('subAdmin');
+    Route::post('/AddSubAdmin',[AdminController::class, 'AddSubAdmin'])->name('AddSubAdmin');
+    //delete 
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('user.destroy');
     //Mail::to('mohmmedleah81@gmail.com')
     //->send(new LaravelMail());
 });
+//Route::middleware(['auth', 'role:sub_admin'])->group(function () {
 
+    Route::get('/admin-dashboard', [AdminController::class, 'index'] )->name('Admin');
+    //add operatuer
+    Route::get('/ajouter operateur', [AdminController::class, 'create'] )->name('operateur');
+    Route::post('/store',[AdminController::class, 'store'])->name('Store');
+    //add subAdmin
+    Route::get('/ajouter SubAdmin', [AdminController::class, 'create'] )->name('subAdmin');
+    Route::post('/AddSubAdmin',[AdminController::class, 'AddSubAdmin'])->name('AddSubAdmin');
+    //delete 
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('user.destroy');
+    //Mail::to('mohmmedleah81@gmail.com')
+    //->send(new LaravelMail());
+//});
 //Route::get('/owner_dashboard', [OwnerController::class,'index'])->name('owner_dashboard');
 
- //gestion email
 
 
 //login & regster github google

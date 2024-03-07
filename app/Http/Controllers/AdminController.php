@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Owner;
+use App\Models\Sub_Admin;
 use App\Models\Opperateur;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\OperateurRequest;
 
@@ -35,26 +38,59 @@ class AdminController extends Controller
      */
     public function store(OperateurRequest $request)
     {
-        $validatedData = $request->validated();
-    
-        
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            
         ]);
     
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
         
-        //$restaurantId = 5;
-        //$operateur = Opperateur::create([
-          //  'user_id' => $user->id,
-            //'restaurant_id' => $restaurantId,
+        
+        //$userID = $user->id;
+        
+
+       // $operateur = Opperateur::create([
+            //'user_id' => $userID,
+            //'restaurant_id' => $restaurantId
         //]);
- 
-        return redirect()->route('Admin')->with('success', 'Opperateur cree avec success!');
+        
+            $user->assignRole('opperateur');
+        return redirect()->route('Admin')->with('success', 'Operateur créé avec succès!');
     }
     
+
+
+
+    public function createSubadmin()
+    {
+        return view('admin.Addsub_admin');
+    }
+
+    public function AddSubAdmin(OperateurRequest $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            
+        ]);
     
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        
+            $test = $user->assignRole('sub_admin');
+            //dd($user);
+        return redirect()->route('Admin')->with('success', 'Sub Admin créé avec succès!');
+    }
  
 
     
