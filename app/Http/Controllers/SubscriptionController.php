@@ -34,7 +34,6 @@ class SubscriptionController extends Controller
             'media_type' => $request->media_type,
         ]);
 
-        // Mail::to('laksoumi.ot@gmail.com')->send(new UserMail());
         Mail::to('test@gmail.com')->send(new UserMail());
 
 
