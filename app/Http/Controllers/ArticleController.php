@@ -91,7 +91,8 @@ public function delete($articleId)
 
 public function destroy($articleId)
 {
-    $article = Articles::findOrFail($articleId);
+    $article = Articles::findOrFail($articleId); 
+   
     $article->delete();
 
     return redirect()->back()->with('success', 'Article deleted successfully');

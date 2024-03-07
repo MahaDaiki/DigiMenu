@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\googelSocialiteController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\MenusController;
+use App\Http\Controllers\OpperateurController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantsController;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+
 
 
 
@@ -70,6 +72,7 @@ Route::get('articles/{article}/edit', [ArticleController::class,'edit' ])->name(
 Route::put('articles/{article}', [ArticleController::class ,'update'])->name('articles.update');
 Route::get('articles/{article}/delete', [ArticleController::class ,'delete'])->name('articles.delete');
 Route::delete('articles/{article}', [ArticleController::class ,'destroy'])->name('articles.destroy');
+Route::get('/numberofscans/{id}', [MenusController::class, 'count'])->name('count');
 
 
 
@@ -78,12 +81,22 @@ Route::resource('restaurants', RestaurantsController::class);
 Route::put('/restaurants/{id}', [RestaurantsController::class, 'update'])->name('restaurants.update');
 Route::delete('/restaurants/{id}', [RestaurantsController::class , 'destroy'])->name('restaurants.destroy');
 Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
-Route::get('/menu/pdf/{id}', [MenusController::class, 'generatePdf'])->name('menu.pdf');
-
-
-
+// Route::get('/menu/pdf/{id}', [MenusController::class, 'generatePdf'])->name('menu.pdf');
 
 });
+Route::middleware(['auth', 'role:opperateur'])->group(function () {
+
+    Route::get('/opperateur_dashboard', [OpperateurController::class, 'index'])->name('opperateur.dashboard');
+
+// Route::get('/MenuManage/{id}', [ArticleController::class, 'index'])->name('menu.manage');
+// Route::post('/menuManage/{menu_id}/add-article', [ArticleController::class, 'store'])->name('articles.store');
+// Route::get('articles/{article}/edit', [ArticleController::class,'edit' ])->name('articles.edit');
+// Route::put('articles/{article}', [ArticleController::class ,'update'])->name('articles.update');
+// Route::get('articles/{article}/delete', [ArticleController::class ,'delete'])->name('articles.delete');
+// Route::delete('articles/{article}', [ArticleController::class ,'destroy'])->name('articles.destroy');
+// Route::post('/menu/create', [MenusController::class, 'createMenu'])->name('menu.create');
+});
+    Route::get('/owner_dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
 Route::get('/', [RestaurantsController::class, 'index'])->name('welcome');
 Route::get('/restaurant-menus/{restaurant}', [MenusController::class, 'display'])->name('restaurant.menus');
 // Route::get('/restaurant-menus/{restaurant}', [MenusController::class, 'index'])->name('restaurant.menus');

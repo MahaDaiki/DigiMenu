@@ -11,7 +11,8 @@ class Menus extends Model
 {
     use HasFactory;
     protected $table = 'menus';
-    protected $fillable = ['title','QRCode', 'restaurant_id'];
+    protected $fillable = ['title','QRCode', 'restaurant_id', 'number_of_scans'];
+  
 
     public function articles()
     {

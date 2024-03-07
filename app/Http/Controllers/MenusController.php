@@ -54,9 +54,19 @@ class MenusController extends Controller
               'restaurant_id' => $restaurantId,
           ]);
           $menu->save();
-          $qrCode = QrCode::size(200)->generate(route('owner.dashboard', ['id' => $menu->id]));
+      
+          $qrCode = QrCode::size(200)->generate(route('count', $menu->id));
+          
           $menu->update(['QRCode' => $qrCode]);
           return redirect('owner_dashboard')->with('success', 'Menu created successfully.');
+      }
+
+      public function count($id){
+        $menu = Menus::find($id);
+        $menu->number_of_scans =  $menu->number_of_scans + 1 ;
+        $menu->save();
+         return route('owner.dashboard', ['id' => $menu->id]);
+
       }
  
      /**

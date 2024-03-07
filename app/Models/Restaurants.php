@@ -12,7 +12,7 @@ class Restaurants extends Model implements HasMedia
 {
     use HasFactory,InteractsWithMedia;
     protected $fillable = ['name', 'location', 'open_at', 'close_at'];
-
+   
     public function menus()
     {
         return $this->hasMany(Menus::class);

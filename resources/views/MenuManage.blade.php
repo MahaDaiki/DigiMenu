@@ -66,12 +66,18 @@
                             <p>{{ $article->Content }}</p>
                             <p>Price: {{ $article->Price }} DH</p>
                             <h2 class="h6"> {{ $article->Category->name }}</h2>
-                            <button type="button" class="" data-toggle="modal" data-target="#editModal" data-article-id="{{ $article->id }}">
+                            <button type="button" class="" data-toggle="modal" data-target="#editModal{{ $article->id }}" data-article-id="{{ $article->id }}">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                            {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                
+                              
+                            </button>  <i class="fa-solid fa-trash"></i> --}}
+                            <form method="post" action="{{ route('articles.destroy', $article->id) }}" style="display: inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Delete')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -87,7 +93,7 @@
     @forelse ($articles as $article)
         
    
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal{{ $article->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,7 +127,7 @@
                                 <label for="category">Category:</label>
                                 <select name="Category_id" id="category" class="form-control" required>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" {{ old('Category_id') == $category->id ? 'selected' : '' }}>
+                                        <option @selected($article->Category_id === $category->id) value="{{ $category->id }}" {{ old('Category_id') == $category->id ? 'selected' : '' }}>
                                             {{ $category->name }}
                                         </option>
                                     @endforeach
@@ -147,7 +153,7 @@
     </div>
 
     <!-- Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -166,7 +172,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     @empty
         <p>none</p>
     @endforelse

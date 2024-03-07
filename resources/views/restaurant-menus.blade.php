@@ -93,6 +93,7 @@
         
             @foreach ($menus as $menu)
                 <div class="card my-3">
+                    
                     <div class="card-header">
                         {{ $menu->title }}
                     </div>
